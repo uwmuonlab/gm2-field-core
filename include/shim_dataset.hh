@@ -80,6 +80,9 @@ class ShimDataset {
     return pt_sync_->GetEntries();
   };
 
+  inline TTree *t_sync() { return pt_sync_; };
+  inline TTree *t_envi() { return pt_envi_; };
+
  private:
   
   TFile *pf_;
