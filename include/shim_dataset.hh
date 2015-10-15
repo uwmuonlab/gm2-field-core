@@ -48,6 +48,12 @@ class ShimDataset {
     Load();
   };
 
+  // Copy constructor
+  ShimDataset(const ShimDataset &sd) {
+    pf_ = new TFile(sd.pf_->GetName());
+    Load();
+  }
+
   ~ShimDataset() {
     pf_->Close();
   }
@@ -77,11 +83,11 @@ class ShimDataset {
   };
 
   inline int GetEnviEntries() {
-    return pt_sync_->GetEntries();
+    return pt_envi_->GetEntries();
   };
 
-  inline TTree *t_sync() { return pt_sync_; };
-  inline TTree *t_envi() { return pt_envi_; };
+  inline TTree *pt_sync() { return pt_sync_; };
+  inline TTree *pt_envi() { return pt_envi_; };
 
  private:
   
