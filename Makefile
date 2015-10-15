@@ -62,15 +62,6 @@ $(CONFDIR):
 build/%.o: src/%.cxx $(DATADEF)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
-build/%.o: include/vme/%.c $(DATADEF)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
-
-build/%.o: src/drs/%.cpp $(DATADEF)
-	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
-
-build/%.o: src/drs/%.c $(DATADEF)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
-
 fe_%: modules/fe_%.cxx $(OBJECTS) $(OBJ_VME) $(OBJ_DRS) $(DATADEF)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $< -o $@ \
 	$(OBJECTS) $(OBJ_VME) $(OBJ_DRS) $(LIBS) $(WXLIBS)
