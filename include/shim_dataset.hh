@@ -28,10 +28,21 @@ class ShimDataset {
 
  public:
   
-  // ctor
-  ShimDataset(TFile *pf);
-  ShimDataset(std::string rootfile);
-  ShimDataset(char *rootfile);
+  // ctors
+  ShimDataset(TFile *pf) { 
+    pf_ = pf; 
+    Load();
+  };
+
+  ShimDataset(char *fname) { 
+    pf_ = new TFile(fname, "read"); 
+    Load();
+  };
+
+  ShimDataset(std::string fname) { 
+    pf_ = new TFile(fname.c_str(), "read");
+    Load();
+  };
 
   ~ShimDataset() {
     pf_->Close();
@@ -45,27 +56,26 @@ class ShimDataset {
 
   // }
 
-  void GetSyncEntry(int idx) {
+  inline void GetSyncEntry(int idx) {
     pt_sync_->GetEntry(idx);
   };
 
-  void GetEnviEntry(int idx) {
+  inline void GetEnviEntry(int idx) {
     pt_envi_->GetEntry(idx);
   };
 
-  void GetEntry(int idx) {
+  inline void GetEntry(int idx) {
     pt_sync_->GetEntry(idx);
     pt_envi_->GetEntry(idx);
   };
 
-  int GetSyncEntries() {
+  inline int GetSyncEntries() {
     return pt_sync_->GetEntries();
   };
 
-  int GetEnviEntries() {
+  inline int GetEnviEntries() {
     return pt_sync_->GetEntries();
   };
-
 
  private:
   
@@ -73,8 +83,15 @@ class ShimDataset {
   TTree *pt_sync_;
   TTree *pt_envi_;
 
-  void Load();
-};
+  inline void Load() {
+
+    pt_sync_ = (TTree *)pf_->Get("t_sync");
+    pt_envi_ = (TTree *)pf_->Get("t_envi");
+
+    pt_sync_->SetBranchAddress("platform", &platform.sys_clock[0]);
+    pt_sync_->SetBranchAddress("laser", &laser.midas_time);
+    pt_envi_->SetBranchAddress("envi", &envi.midas_time);
+  };  
 
 } // ::gm2
 
