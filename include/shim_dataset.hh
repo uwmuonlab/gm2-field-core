@@ -23,11 +23,15 @@ about:  A class meant to handle shimming data in a nice way, load all the
 
 namespace gm2 {
 
-
 class ShimDataset {
 
  public:
   
+  // Variables
+  platform_t platform;
+  hamar_t laser;
+  scs2000_t envi;
+
   // ctors
   ShimDataset(TFile *pf) { 
     pf_ = pf; 
@@ -48,11 +52,10 @@ class ShimDataset {
     pf_->Close();
   }
 
-  platform_t platform;
-  hamar_t laser;
-  scs2000_t envi;
-
-  // const &ShimDataset operator[] {
+  inline const ShimDataset &operator[] (int idx) {
+    GetEntry(idx);
+    return *this;
+  };
 
   // }
 
@@ -92,6 +95,8 @@ class ShimDataset {
     pt_sync_->SetBranchAddress("laser", &laser.midas_time);
     pt_envi_->SetBranchAddress("envi", &envi.midas_time);
   };  
+
+};
 
 } // ::gm2
 
