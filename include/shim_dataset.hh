@@ -19,7 +19,7 @@ about:  A class meant to handle shimming data in a nice way, load all the
 #include "TTree.h"        
 
 //--- projects includes -----------------------------------------------------//
-#include "types/nmr_structs.hh"
+#include "shim_structs.hh"
 
 namespace gm2 {
 
