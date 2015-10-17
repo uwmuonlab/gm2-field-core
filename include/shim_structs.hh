@@ -67,6 +67,17 @@ struct hamar_t {
 
 const char *hamar_str = "midas_time/I:r/F:z/F:phi/F";
 
+struct capacitec_t {
+  Int_t midas_time;
+  Float_t outer_lo;
+  Float_t inner_up;
+  Float_t inner_lo;
+  Float_t outer_up;
+};
+
+const char *capacitec_str = "midas_time/I:inner_lo/F:inner_hi/F"\
+":outer_lo/F:outer_hi/F";
+
 struct scs2000_t {
   Int_t midas_time;
   Float_t temp[8];
