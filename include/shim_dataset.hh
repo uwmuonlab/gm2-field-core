@@ -31,6 +31,7 @@ class ShimDataset {
   platform_t platform;
   hamar_t laser;
   scs2000_t envi;
+  capacitec_t ctec;
 
   // ctors
   ShimDataset(TFile *pf) { 
