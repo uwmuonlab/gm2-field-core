@@ -102,6 +102,7 @@ class ShimDataset {
 
     pt_sync_->SetBranchAddress("platform", &platform.sys_clock[0]);
     pt_sync_->SetBranchAddress("laser", &laser.midas_time);
+    pt_sync_->SetBranchAddress("ctec", &ctec.midas_time);
     pt_envi_->SetBranchAddress("envi", &envi.midas_time);
   };  
 
