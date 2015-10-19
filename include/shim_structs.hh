@@ -86,6 +86,15 @@ struct scs2000_t {
 
 const char *scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
 
+struct tilt_sensor_t {
+  Int_t midas_time;
+  Int_t temp;
+  Int_t phi;
+  Int_t rad;
+};
+
+const char * tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
+
 } // ::nmr
 
 #endif

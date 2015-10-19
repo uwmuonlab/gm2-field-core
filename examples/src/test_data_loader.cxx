@@ -32,8 +32,9 @@ int main(int argc, char **argv)
   PlatformCoords p;
   cout.precision(16);
 
-  for (int i = 0; i < d.GetSyncEntries(); ++i) {
+  for (int i = 0; i < 10; ++i) {
     cout << d[i].platform.freq[0] << endl;
+    cout << d[i].tilt.phi << endl;
   }
 
   cout << p.coords[1][0] << ", " << p.coords[1][1] << endl;
