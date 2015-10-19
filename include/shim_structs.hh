@@ -75,8 +75,8 @@ struct capacitec_t {
   Float_t outer_up;
 };
 
-const char *capacitec_str = "midas_time/I:inner_lo/F:inner_hi/F"\
-":outer_lo/F:outer_hi/F";
+const char *capacitec_str = "midas_time/I:inner_lo/F:inner_up/F"\
+":outer_lo/F:outer_up/F";
 
 struct scs2000_t {
   Int_t midas_time;
