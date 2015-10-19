@@ -32,11 +32,10 @@ int main(int argc, char **argv)
   PlatformCoords p;
   cout.precision(16);
 
-  for (int i = 0; i < 10; ++i) {
-    cout << d[i].platform.freq[0] << endl;
-    cout << d[i].tilt.phi << endl;
-  }
+  cout << "platform.freq[0] = " << d[0].platform.freq[0] << endl;
+  cout << "tilt.phi = " << d[0].tilt.phi << endl;
+  cout << "ctec.inner_up = " << d[0].ctec.inner_up << endl;
+  cout << "platfrom.coords[1] = " << p.coords[1][0] << ", " << p.coords[1][1] << endl;
 
-  cout << p.coords[1][0] << ", " << p.coords[1][1] << endl;
   return 0;
 }
