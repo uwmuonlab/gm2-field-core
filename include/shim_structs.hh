@@ -58,14 +58,18 @@ const char * const name = "sys_clock["#num_ch"]/D:gps_clock["#num_ch"]/D:"\
 MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SHORT_FID_LN);
 MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
 
+// Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
 struct hamar_t {
   Int_t midas_time;
-  Float_t r;
-  Float_t z;
-  Float_t phi;
+  Float_t r_1;
+  Float_t z_1;
+  Float_t phi_1;
+  Float_t r_2;
+  Float_t z_2;
+  Float_t phi_2;
 };
 
-const char *hamar_str = "midas_time/I:r/F:z/F:phi/F";
+const char *hamar_str = "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
   Int_t midas_time;
