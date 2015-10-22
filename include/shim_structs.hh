@@ -13,18 +13,11 @@ about:  Contains the data structures for several hardware devices in a single
 
 \*===========================================================================*/
 
-// NMR specific stuff
-#define NMR_FID_LN 100000
-#define SHORT_FID_LN 10000
-#define SHIM_PLATFORM_CH 28
-#define SHIM_FIXED_CH 4
-#define RUN_TROLLEY_CH 17
-#define RUN_FIXED_CH 378
-
 //--- other includes --------------------------------------------------------//
 #include "TFile.h"
 
 //--- projects includes -----------------------------------------------------//
+#include "shim_constants.hh"
 
 namespace gm2 {
 
