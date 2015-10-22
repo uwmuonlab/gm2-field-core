@@ -28,6 +28,8 @@ about:  Contains the data structures for several hardware devices in a single
 
 namespace gm2 {
 
+const double laser_phi_offset_p2_to_p1 = 1.971;
+
 // NMR specific stuff
 // A macro to define nmr structs since they are very similar.
 #define MAKE_NMR_STRUCT(name, num_ch, len_tr)\
