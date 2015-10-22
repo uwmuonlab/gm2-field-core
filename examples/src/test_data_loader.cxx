@@ -20,7 +20,6 @@ usage:
 
 //--- project includes ------------------------------------------------------//
 #include "shim_dataset.hh"
-#include "platform_coords.hh"
 
 using namespace std;
 using namespace gm2;
@@ -29,13 +28,13 @@ int main(int argc, char **argv)
 {
   assert(argc > 1);
   ShimDataset d(argv[1]);
-  PlatformCoords p;
   cout.precision(16);
 
   cout << "platform.freq[0] = " << d[0].platform.freq[0] << endl;
   cout << "tilt.phi = " << d[0].tilt.phi << endl;
   cout << "ctec.inner_up = " << d[0].ctec.inner_up << endl;
-  cout << "platfrom.coords[1] = " << p.coords[1][0] << ", " << p.coords[1][1] << endl;
+  cout << "platform_coords[1] = " << platform_cart[1][0];
+  cout  << ", " << platform_cart[1][1] << endl;
 
   return 0;
 }
