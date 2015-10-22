@@ -1,14 +1,13 @@
-#ifndef GM2_FIELD_CORE_INCLUDE_PLATFORM_COORDS_HH_
-#define GM2_FIELD_CORE_INCLUDE_PLATFORM_COORDS_HH_
+#ifndef GM2_FIELD_CORE_INCLUDE_SHIM_CONSTANTS_HH_
+#define GM2_FIELD_CORE_INCLUDE_SHIM_CONSTANTS_HH_
 
 /*===========================================================================*\
 
 author: Matthias W. Smith
 email:  mwsmith2@uw.edu
-file:   shim_platform.hh
+file:   shim_constants.hh
 
-about:  A class that holds specific attributes of the shimming platform, like
-        probe coordinates.
+about:  A header file for shimming constants.
 
 \*===========================================================================*/
 
@@ -21,9 +20,10 @@ about:  A class that holds specific attributes of the shimming platform, like
 
 namespace gm2 {
 
-// Constants
+// General constants
 constexpr double storage_rad = 7112.0;
 
+// Platform constants
 constexpr int platform_nprobes = 25;
 constexpr double platform_rad = 4.5;
 
@@ -83,28 +83,8 @@ constexpr double platform_polar[25][2] = {
   { 4.5000000000, 4.3196898987}
 };
 
-constexpr std::map<std::string, double> offset_map = {
-  {"laser_p2_to_p1", 1.971},
-  {"laser_p1_to_p2",-1.971}
-};
-
-constexpr laser_p2_to_p1(double x) {
-  x += offset_map["laser_p2_to_p1"];
-  if (x >= 360.0) {
-    x -= 360.0;
-  } else if (x <= 0.0) {
-    x += 360.0;
-  }
-}
-
-constexpr laser_p1_to_p2(double x) {
-  x += offset_map["laser_p1_to_p2"];
-  if (x >= 360.0) {
-    x -= 360.0;
-  } else if (x <= 0.0) {
-    x += 360.0;
-  }
-}
+// Laser constants
+constexpr double laser_phi_offset =  1.971;
 
 } // ::gm2
 
