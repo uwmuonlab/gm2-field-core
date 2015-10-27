@@ -22,14 +22,14 @@ for i in range(25):
         ppolar[i][0] = r0
         ppolar[i][1] = theta
 
-    elif i > 0 and i < 9:
+    elif i > 0 and i <= 8:
         theta = (i - 1) * arc1 - pi / 2.0
         pcart[i][0] = r1 * cos(theta)
         pcart[i][1] = r1 * sin(theta)
         ppolar[i][0] = r1
         ppolar[i][1] = theta
 
-    elif i > 9 and i < 25:
+    elif i > 8 and i < 25:
         theta = (i - 9) * arc2 - pi / 2.0
         pcart[i][0] = r2 * cos(theta)
         pcart[i][1] = r2 * sin(theta)

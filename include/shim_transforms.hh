@@ -1,5 +1,5 @@
-#ifndef GM2_FIELD_ANALYSIS_INCLUDE_SHIM_TRANSFORMS_HH_
-#define GM2_FIELD_ANALYSIS_INCLUDE_SHIM_TRANSFORMS_HH_
+#ifndef GM2_FIELD_CORE_INCLUDE_SHIM_TRANSFORMS_HH_
+#define GM2_FIELD_CORE_INCLUDE_SHIM_TRANSFORMS_HH_
 
 /*===========================================================================*\
 
