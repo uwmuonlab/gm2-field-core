@@ -1,6 +1,6 @@
 # Grab the targets and sources as two batches
 SOURCES = $(wildcard src/*.cxx)
-OBJECTS = $(patsubst src/%.cxx,build/%.o,$(SOURCES))
+#OBJECTS = $(patsubst core/src/%.cxx,core/build/%.o,$(wildcard core/src/*.cxx))
 TARGETS = $(patsubst src/%.cxx,bin/%,$(SOURCES))
 
 # Debugging/profiling flags
@@ -23,18 +23,16 @@ ifeq ($(UNAME_S), Linux)
 	FLAGS = -std=c++0x $(DEBUG)
 endif
 
-LIBS = -lm
-
-FLAGS += $(shell root-config --cflags) -Iinclude -Icore/include -Icore
+LIBS = -lm -Lcore/lib -lgm2fieldcore
 LIBS  += $(shell root-config --libs)
+
+FLAGS += -Icore/include
+FLAGS += $(shell root-config --cflags)
 
 all: $(TARGETS)
 
-build/%.o: src/%.cxx
-	$(CXX) $(FLAGS) -o $@ -c $< 
-
-bin/%: build/%.o
-	$(CXX) $(FLAGS) -o $@ $+ $(LIBS)
+bin/%: src/%.cxx 
+	$(CXX) $(FLAGS) -o $@ $+ $(LIBS) $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(TARGETS)
