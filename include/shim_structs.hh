@@ -75,14 +75,14 @@ const char *hamar_str = "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
   Int_t midas_time;
-  Float_t outer_lo;
   Float_t inner_up;
   Float_t inner_lo;
   Float_t outer_up;
+  Float_t outer_lo;
 };
 
-const char *capacitec_str = "midas_time/I:inner_lo/F:inner_up/F"\
-":outer_lo/F:outer_up/F";
+const char *capacitec_str = "midas_time/I:inner_up/F:inner_lo/F"\
+":outer_up/F:outer_lo/F";
 
 struct scs2000_t {
   Int_t midas_time;
