@@ -1,11 +1,11 @@
-#ifndef GM2_FIELD_ANALYSIS_INCLUDE_NMR_STRUCTS_HH_
-#define GM2_FIELD_ANALYSIS_INCLUDE_NMR_STRUCTS_HH_
+#ifndef GM2_FIELD_CORE_INCLUDE_SHIM_STRUCTS_HH_
+#define GM2_FIELD_CORE_INCLUDE_SHIM_STRUCTS_HH_
 
 /*===========================================================================*\
 
 author: Matthias W. Smith
 email:  mwsmith2@uw.edu
-file:   nmr_structs.hh
+file:   shim_structs.hh
 
 about:  Contains the data structures for several hardware devices in a single
         location.  The header should be included in any program that aims
@@ -64,7 +64,8 @@ struct hamar_t {
   Float_t phi_2;
 };
 
-const char *hamar_str = "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
+const char *const hamar_str = 
+"midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
   Int_t midas_time;
@@ -74,8 +75,8 @@ struct capacitec_t {
   Float_t outer_up;
 };
 
-const char *capacitec_str = "midas_time/I:inner_lo/F:inner_up/F"\
-":outer_lo/F:outer_up/F";
+const char *const capacitec_str = 
+"midas_time/I:inner_lo/F:inner_up/F:outer_lo/F:outer_up/F";
 
 struct scs2000_t {
   Int_t midas_time;
@@ -83,7 +84,7 @@ struct scs2000_t {
   Float_t ctec[4];
 };
 
-const char *scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+const char *const scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
 
 struct tilt_sensor_t {
   Int_t midas_time;
@@ -92,7 +93,7 @@ struct tilt_sensor_t {
   Int_t rad;
 };
 
-const char * tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
+const char *const tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
 
 } // ::nmr
 
