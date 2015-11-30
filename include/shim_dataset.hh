@@ -30,8 +30,10 @@ class ShimDataset {
   // Variables
   platform_t platform;
   hamar_t laser;
-  scs2000_t envi;
   capacitec_t ctec;
+  metrolab_t metro;
+  sync_flags_t flags;
+  scs2000_t envi;
   tilt_sensor_t tilt;
 
   // ctors
@@ -117,6 +119,8 @@ class ShimDataset {
     pt_sync_->SetBranchAddress("platform", &platform.sys_clock[0]);
     pt_sync_->SetBranchAddress("laser", &laser.midas_time);
     pt_sync_->SetBranchAddress("ctec", &ctec.midas_time);
+    pt_sync_->SetBranchAddress("metro", &metro.field);
+    pt_sync_->SetBranchAddress("flags", &flags.platform_data);
     pt_envi_->SetBranchAddress("envi", &envi.midas_time);
     pt_tilt_->SetBranchAddress("tilt", &tilt.midas_time);
   };  
