@@ -71,7 +71,7 @@ struct hamar_t {
   Float_t phi_2;
 };
 
-const char *hamar_str = "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
+const char *hamar_str = "midas_time/l:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
   Int_t midas_time;
@@ -81,7 +81,7 @@ struct capacitec_t {
   Float_t outer_lo;
 };
 
-const char *capacitec_str = "midas_time/I:inner_up/F:inner_lo/F"\
+const char *capacitec_str = "midas_time/l:inner_up/F:inner_lo/F"\
 ":outer_up/F:outer_lo/F";
 
 struct scs2000_t {
@@ -90,7 +90,7 @@ struct scs2000_t {
   Float_t ctec[4];
 };
 
-const char *scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+const char *scs2000_str = "midas_time/l:temp[8]/F:ctec[4]/F";
 
 struct tilt_sensor_t {
   Int_t midas_time;
@@ -99,8 +99,19 @@ struct tilt_sensor_t {
   Int_t rad;
 };
 
-const char * tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
+const char * tilt_sensor_str = "midas_time/l:temp/I:phi/I:rad/I";
 
-} // ::nmr
+struct metrolab_t {
+  Double_t field;
+  Int_t midas_time;
+  Int_t state;
+  Int_t units;
+  Bool_t locked;
+  Bool_t is_tesla;
+};
+
+const char * metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:in_tesla/O";
+
+} // ::gm2
 
 #endif
