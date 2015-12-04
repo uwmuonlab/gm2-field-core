@@ -53,6 +53,17 @@ const char * const name = "sys_clock["#num_ch"]/D:gps_clock["#num_ch"]/D:"\
 MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SHORT_FID_LN);
 MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
 
+struct field_t {
+  Double_t sys_clock[28];
+  Doublt_t freq[28];
+  Double_t snr[28];
+  Double_t len[28];
+  Double_t multipole[16];
+};
+
+const char *const field_str = 
+"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipoles[16]/D";
+
 // Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
 struct hamar_t {
   Int_t midas_time;
