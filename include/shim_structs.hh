@@ -80,10 +80,10 @@ const char *const hamar_str =
 
 struct capacitec_t {
   Int_t midas_time;
-  Float_t outer_lo;
   Float_t inner_up;
   Float_t inner_lo;
   Float_t outer_up;
+  Float_t outer_lo;
 };
 
 const char *const capacitec_str = 
@@ -106,6 +106,35 @@ struct tilt_sensor_t {
 
 const char *const tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
 
-} // ::nmr
+struct metrolab_t {
+  Double_t field;
+  Int_t midas_time;
+  Int_t state;
+  Int_t units;
+  Bool_t locked;
+  Bool_t is_tesla;
+};
+
+const char * metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:"\
+"in_tesla/O";
+
+struct sync_flags_t {
+  Bool_t platform_data;
+  Bool_t laser_data;
+  Bool_t ctec_data;
+  Bool_t mlab_data;
+  Bool_t envi_data;
+  Bool_t tilt_data;
+  Bool_t laser_p1;
+  Bool_t laser_p2;
+  Bool_t laser_swap;
+  Bool_t missing_probe19;
+};
+
+const char * sync_flags_str = 
+"platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
+"tilt_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
+
+} // ::gm2
 
 #endif
