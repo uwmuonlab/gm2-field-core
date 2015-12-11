@@ -55,7 +55,7 @@ MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
 
 struct field_t {
   Double_t sys_clock[28];
-  Doublt_t freq[28];
+  Double_t freq[28];
   Double_t snr[28];
   Double_t len[28];
   Double_t multipole[16];
