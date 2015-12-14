@@ -55,14 +55,14 @@ MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
 
 struct field_t {
   Double_t sys_clock[28];
-  Doublt_t freq[28];
+  Double_t freq[28];
   Double_t snr[28];
   Double_t len[28];
   Double_t multipole[16];
 };
 
 const char *const field_str = 
-"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipoles[16]/D";
+"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D";
 
 // Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
 struct hamar_t {
@@ -87,7 +87,7 @@ struct capacitec_t {
 };
 
 const char *const capacitec_str = 
-"midas_time/I:inner_lo/F:inner_up/F:outer_lo/F:outer_up/F";
+"midas_time/I:inner_up/F:inner_lo/F:outer_up/F:outer_lo/F";
 
 struct scs2000_t {
   Int_t midas_time;
@@ -115,7 +115,7 @@ struct metrolab_t {
   Bool_t is_tesla;
 };
 
-const char * metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:"\
+const char *const metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:"\
 "in_tesla/O";
 
 struct sync_flags_t {
@@ -131,7 +131,7 @@ struct sync_flags_t {
   Bool_t missing_probe19;
 };
 
-const char * sync_flags_str = 
+const char *const sync_flags_str = 
 "platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
 "tilt_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
 

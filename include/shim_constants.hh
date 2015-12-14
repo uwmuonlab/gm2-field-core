@@ -22,6 +22,9 @@ namespace gm2 {
 
 // General constants
 constexpr double storage_rad = 7112.0;
+constexpr double field_khz_to_ppm = 61790.0 * 1.0e-6;
+
+// Multipole constants
 constexpr int num_multipoles = 16;
 
 // Platform constants
