@@ -16,8 +16,8 @@ about:  A class meant to handle the initial analysis of shim datasets.
 //--- other includes --------------------------------------------------------//
 #include "TFile.h"
 #include "TTree.h"        
-#include "root/math/SMatrix.h"
-#include "root/math/SVector.h"
+#include "Math/SMatrix.h"
+#include "Math/SVector.h"
 
 //--- projects includes -----------------------------------------------------//
 #include "shim_structs.hh"
