@@ -53,17 +53,6 @@ const char * const name = "sys_clock["#num_ch"]/D:gps_clock["#num_ch"]/D:"\
 MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SHORT_FID_LN);
 MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
 
-struct field_t {
-  Double_t sys_clock[28];
-  Double_t freq[28];
-  Double_t snr[28];
-  Double_t len[28];
-  Double_t multipole[16];
-};
-
-const char *const field_str = 
-"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D";
-
 // Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
 struct hamar_t {
   Int_t midas_time;
@@ -134,6 +123,34 @@ struct sync_flags_t {
 const char *const sync_flags_str = 
 "platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
 "tilt_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
+
+// Structs for derived datasets
+struct field_t {
+  Double_t sys_clock[28];
+  Double_t freq[28];
+  Double_t snr[28];
+  Double_t len[28];
+  Double_t multipole[16];
+};
+
+const char *const field_str = 
+"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D";
+
+struct ring_t {
+  Double_t r;
+  Double_t phi;
+  Double_t z;
+  Double_t gap_inner;
+  Double_t gap_outer;
+  Double_t gap_mean;
+  Double_t gap_diff;
+  Int_t pole_id;
+  Int_t yoke_id;
+};
+
+const char *ring_str = 
+"r/D:phi/D:z/D:gap_inner/D:gap_outer/D:gap_mean/D:/gap_diff/D:"\
+"pole_id/I:yoke_id/I";
 
 } // ::gm2
 
