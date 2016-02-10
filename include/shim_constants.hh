@@ -87,6 +87,14 @@ constexpr double platform_polar[25][2] = {
   { 4.5000000000, 4.3196898987}
 };
 
+constexpr double pole_start_angle(int pole_id) {
+  return pole_id * 10.0 - 15;
+}
+
+constexpr double pole_stop_angle(int pole_id) {
+  return pole_id * 10.0 - 5.0;
+}
+
 // Laser constants
 constexpr double laser_phi_offset =  1.971;
 
