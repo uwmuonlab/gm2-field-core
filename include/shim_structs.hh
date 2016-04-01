@@ -148,7 +148,7 @@ struct ring_t {
   Int_t yoke_id;
 };
 
-const char *ring_str = 
+const char *const ring_str = 
 "r/D:phi/D:z/D:gap_inner/D:gap_outer/D:gap_mean/D:/gap_diff/D:"\
 "pole_id/I:yoke_id/I";
 
