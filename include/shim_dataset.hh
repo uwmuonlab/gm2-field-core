@@ -35,6 +35,7 @@ class ShimDataset {
   sync_flags_t flags;
   scs2000_t envi;
   tilt_sensor_t tilt;
+  hall_platform_t hall;
 
   // ctors
   ShimDataset(TFile *pf) { 
@@ -89,6 +90,7 @@ class ShimDataset {
     pt_sync_->GetEntry(idx);
     pt_envi_->GetEntry(idx);
     pt_tilt_->GetEntry(idx);
+    pt_hall_->GetEntry(idx);
     pt_mlab_->GetEntry(idx);
   };
 
@@ -104,6 +106,10 @@ class ShimDataset {
     return pt_tilt_->GetEntries();
   };
 
+  inline int GetHallEntries() {
+    return pt_hall_->GetEntries();
+  };
+
   inline int GetMlabEntries() {
     return pt_mlab_->GetEntries();
   };
@@ -111,6 +117,7 @@ class ShimDataset {
   inline TTree *pt_sync() { return pt_sync_; };
   inline TTree *pt_envi() { return pt_envi_; };
   inline TTree *pt_tilt() { return pt_tilt_; };
+  inline TTree *pt_hall() { return pt_hall_; };
   inline TTree *pt_mlab() { return pt_mlab_; };
 
  private:
@@ -119,6 +126,7 @@ class ShimDataset {
   TTree *pt_sync_;
   TTree *pt_envi_;
   TTree *pt_tilt_; 
+  TTree *pt_hall_; 
   TTree *pt_mlab_;
 
   inline void Load() {
@@ -126,6 +134,7 @@ class ShimDataset {
     pt_sync_ = (TTree *)pf_->Get("t_sync");
     pt_envi_ = (TTree *)pf_->Get("t_envi");
     pt_tilt_ = (TTree *)pf_->Get("t_tilt");
+    pt_hall_ = (TTree *)pf_->Get("t_hall");
     pt_mlab_ = (TTree *)pf_->Get("t_mlab");
 
     pt_sync_->SetBranchAddress("platform", &platform.sys_clock[0]);
@@ -134,6 +143,7 @@ class ShimDataset {
     pt_sync_->SetBranchAddress("flags", &flags.platform_data);
     pt_envi_->SetBranchAddress("envi", &envi.midas_time);
     pt_tilt_->SetBranchAddress("tilt", &tilt.midas_time);
+    pt_hall_->SetBranchAddress("hall", &hall.volt);
     pt_mlab_->SetBranchAddress("mlab", &mlab.field);
   };  
 

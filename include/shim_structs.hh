@@ -95,6 +95,14 @@ struct tilt_sensor_t {
 
 const char *const tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
 
+struct hall_platform_t {
+  Double_t volt;
+  Double_t temp;
+  Int_t midas_time;
+};
+
+const char *const hall_platform_str = "volt/D:temp/D:midas_time/I";
+
 struct metrolab_t {
   Double_t field;
   Int_t midas_time;
@@ -114,6 +122,7 @@ struct sync_flags_t {
   Bool_t mlab_data;
   Bool_t envi_data;
   Bool_t tilt_data;
+  Bool_t hall_data;
   Bool_t laser_p1;
   Bool_t laser_p2;
   Bool_t laser_swap;
@@ -122,7 +131,7 @@ struct sync_flags_t {
 
 const char *const sync_flags_str = 
 "platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
-"tilt_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
+"tilt_data/O:hall_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
 
 // Structs for derived datasets
 struct field_t {
