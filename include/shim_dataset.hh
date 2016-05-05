@@ -149,6 +149,79 @@ class ShimDataset {
 
 };
 
+
+class ExtractedDataset {
+
+ public:
+  
+  // Variables
+  field_t field;
+  hamar_t laser;
+  capacitec_t ctec;
+  metrolab_t mlab;
+  sync_flags_t flags;
+  scs2000_t envi;
+  tilt_sensor_t tilt;
+  hall_platform_t hall;
+
+  // ctors
+  ExtractedDataset(TFile *pf) { 
+    pf_ = pf; 
+    Load();
+  };
+
+  ExtractedDataset(char *fname) { 
+    pf_ = new TFile(fname, "read"); 
+    Load();
+  };
+
+  ExtractedDataset(std::string fname) { 
+    pf_ = new TFile(fname.c_str(), "read");
+    Load();
+  };
+
+  // Copy constructor
+  ExtractedDataset(const ExtractedDataset &sd) {
+    pf_ = new TFile(sd.pf_->GetName());
+    Load();
+  }
+
+  ~ExtractedDataset() {
+    pf_->Close();
+  }
+
+  inline const ExtractedDataset &operator[] (int idx) {
+    pt_->GetEntry(idx);    
+    return *this;
+  };
+
+  inline int GetEntries() {
+    return pt_->GetEntries();
+  };
+
+  inline TTree *pt() { return pt_; };
+
+ private:
+  
+  TFile *pf_;
+  TTree *pt_;
+
+  inline void Load() {
+
+    pt_ = (TTree *)pf_->Get("t");
+
+    pt_->SetBranchAddress("field", &field.sys_clock[0]);
+    pt_->SetBranchAddress("laser", &laser.midas_time);
+    pt_->SetBranchAddress("ctec", &ctec.midas_time);
+    pt_->SetBranchAddress("flags", &flags.platform_data);
+    pt_->SetBranchAddress("envi", &envi.midas_time);
+    pt_->SetBranchAddress("tilt", &tilt.midas_time);
+    pt_->SetBranchAddress("hall", &hall.volt);
+    pt_->SetBranchAddress("mlab", &mlab.field);
+  };  
+
+};
+
 } // ::gm2
 
 #endif
