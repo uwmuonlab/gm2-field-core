@@ -24,37 +24,47 @@ namespace gm2 {
 const double laser_phi_offset_p2_to_p1 = 1.971;
 
 // NMR specific stuff
-// A macro to define nmr structs since they are very similar.
-#define MAKE_NMR_STRUCT(name, num_ch, len_tr)\
-struct name {\
-  Double_t sys_clock[num_ch];\
-  Double_t gps_clock[num_ch];\
-  Double_t dev_clock[num_ch];\
-  Double_t snr[num_ch];\
-  Double_t len[num_ch];\
-  Double_t freq[num_ch];\
-  Double_t ferr[num_ch];\
-  Double_t freq_zc[num_ch];\
-  Double_t ferr_zc[num_ch];\
-  UShort_t health[num_ch];\
-  UShort_t method[num_ch];\
-  UShort_t trace[num_ch][len_tr];\
+struct platform_t {
+  Double_t sys_clock[28];
+  Double_t gps_clock[28];
+  Double_t dev_clock[28];
+  Double_t snr[28];
+  Double_t len[28];
+  Double_t freq[28];
+  Double_t ferr[28];
+  Double_t freq_zc[28];
+  Double_t ferr_zc[28];
+  UShort_t health[28];
+  UShort_t method[28];
+  UShort_t trace[28][10000];
 };
 
-// Might as well define a root branch string for the struct.
-#define NMR_HELPER(name, num_ch, len_tr) \
-const char * const name = "sys_clock["#num_ch"]/D:gps_clock["#num_ch"]/D:"\
-"dev_clock["#num_ch"]/D:snr["#num_ch"]/D:len["#num_ch"]/D:freq["#num_ch"]/D:"\
-"ferr["#num_ch"]/D:freq_zc["#num_ch"]/D:ferr_zc["#num_ch"]/D:"\
-"health["#num_ch"]/s:method["#num_ch"]/s:trace["#num_ch"]["#len_tr"]/s"
+const char * const platform_str = "sys_clock[28]/D:gps_clock[28]/D:"\
+"dev_clock[28]/D:snr[28]/D:len[28]/D:freq[28]/D:ferr[28]/D:freq_zc[28]/D:"\
+"ferr_zc[28]/D:health[28]/s:method[28]/s:trace[28][10000]/s";
 
-#define MAKE_NMR_STRING(name, num_ch, len_tr) NMR_HELPER(name, num_ch, len_tr)
+// NMR specific stuff
+struct long_platform_t {
+  Double_t sys_clock[28];
+  Double_t gps_clock[28];
+  Double_t dev_clock[28];
+  Double_t snr[28];
+  Double_t len[28];
+  Double_t freq[28];
+  Double_t ferr[28];
+  Double_t freq_zc[28];
+  Double_t ferr_zc[28];
+  UShort_t health[28];
+  UShort_t method[28];
+  UShort_t trace[28][100000];
+};
 
-MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SHORT_FID_LN);
-MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
+const char * const long_platform_str = "sys_clock[28]/D:gps_clock[28]/D:"\
+"dev_clock[28]/D:snr[28]/D:len[28]/D:freq[28]/D:ferr[28]/D:freq_zc[28]/D:"\
+"ferr_zc[28]/D:health[28]/s:method[28]/s:trace[28][100000]/s";
 
 // Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
-struct hamar_t {
+struct laser_t {
   Int_t midas_time;
   Float_t r_1;
   Float_t z_1;
@@ -64,7 +74,7 @@ struct hamar_t {
   Float_t phi_2;
 };
 
-const char *const hamar_str = 
+const char *const laser_str = 
 "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
@@ -78,13 +88,20 @@ struct capacitec_t {
 const char *const capacitec_str = 
 "midas_time/I:inner_up/F:inner_lo/F:outer_up/F:outer_lo/F";
 
-struct scs2000_t {
+struct mscb_cart_t {
   Int_t midas_time;
   Float_t temp[8];
   Float_t ctec[4];
 };
 
-const char *const scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+const char *const mscb_cart_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+
+struct mscb_ring_t {
+  Int_t midas_time;
+  Float_t temp[12];
+};
+
+const char *const mscb_ring_str = "midas_time/I:temp[12]/F";
 
 struct tilt_sensor_t {
   Int_t midas_time;
@@ -95,13 +112,13 @@ struct tilt_sensor_t {
 
 const char *const tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
 
-struct hall_platform_t {
+struct hall_probe_t {
   Double_t volt;
   Double_t temp;
   Int_t midas_time;
 };
 
-const char *const hall_platform_str = "volt/D:temp/D:midas_time/I";
+const char *const hall_probe_str = "volt/D:temp/D:midas_time/I";
 
 struct metrolab_t {
   Double_t field;
@@ -115,7 +132,7 @@ struct metrolab_t {
 const char *const metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:"\
 "in_tesla/O";
 
-struct sync_flags_t {
+struct data_flags_t {
   Bool_t platform_data;
   Bool_t laser_data;
   Bool_t ctec_data;
@@ -129,7 +146,7 @@ struct sync_flags_t {
   Bool_t missing_probe19;
 };
 
-const char *const sync_flags_str = 
+const char *const data_flags_str = 
 "platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
 "tilt_data/O:hall_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
 
