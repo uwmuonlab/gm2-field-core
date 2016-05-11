@@ -170,13 +170,14 @@ class ExtractedDataset {
   
   // Variables
   field_t field;
-  hamar_t laser;
+  laser_t laser;
   capacitec_t ctec;
   metrolab_t mlab;
-  sync_flags_t flags;
-  scs2000_t envi;
+  data_flags_t flags;
+  mscb_cart_t cart;
+  mscb_ring_t ring;
   tilt_sensor_t tilt;
-  hall_platform_t hall;
+  hall_probe_t hall;
 
   // ctors
   ExtractedDataset(TFile *pf) { 
@@ -228,7 +229,8 @@ class ExtractedDataset {
     pt_->SetBranchAddress("laser", &laser.midas_time);
     pt_->SetBranchAddress("ctec", &ctec.midas_time);
     pt_->SetBranchAddress("flags", &flags.platform_data);
-    pt_->SetBranchAddress("envi", &envi.midas_time);
+    pt_->SetBranchAddress("cart", &cart.midas_time);
+    pt_->SetBranchAddress("ring", &ring.midas_time);
     pt_->SetBranchAddress("tilt", &tilt.midas_time);
     pt_->SetBranchAddress("hall", &hall.volt);
     pt_->SetBranchAddress("mlab", &mlab.field);
