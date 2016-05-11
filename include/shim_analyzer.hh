@@ -27,6 +27,8 @@ namespace gm2 {
 
 std::vector<double> fit_multipoles(platform_t platform);
 
+std::vector<double> fit_weighted_multipoles(platform_t platform);
+
 // class ShimAnalyzer {
 
 //  public:
