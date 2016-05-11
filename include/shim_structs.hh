@@ -137,9 +137,10 @@ struct data_flags_t {
   Bool_t laser_data;
   Bool_t ctec_data;
   Bool_t mlab_data;
-  Bool_t envi_data;
   Bool_t tilt_data;
   Bool_t hall_data;
+  Bool_t mscb_cart_data;
+  Bool_t mscb_ring_data;
   Bool_t laser_p1;
   Bool_t laser_p2;
   Bool_t laser_swap;
@@ -147,8 +148,9 @@ struct data_flags_t {
 };
 
 const char *const data_flags_str = 
-"platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
-"tilt_data/O:hall_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
+"platform_data/O:laser_data/O:ctec_data/O:metro_data/O:tilt_data/O:"
+"hall_data/O:mscb_cart_data/O:mscb_ring_data/O:laser_p1/O:laser_p2/O:"\
+"laser_swap/O:missing_probe19/O";
 
 // Structs for derived datasets
 struct field_t {
