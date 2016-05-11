@@ -144,8 +144,8 @@ class ShimDataset {
   inline void Load() {
 
     pt_sync_ = (TTree *)pf_->Get("t_sync");
-    pt_cart_ = (TTree *)pf_->Get("t_cart");
-    pt_ring_ = (TTree *)pf_->Get("t_ring");
+    pt_cart_ = (TTree *)pf_->Get("t_mscb_cart");
+    pt_ring_ = (TTree *)pf_->Get("t_mscb_ring");
     pt_tilt_ = (TTree *)pf_->Get("t_tilt");
     pt_hall_ = (TTree *)pf_->Get("t_hall");
     pt_mlab_ = (TTree *)pf_->Get("t_mlab");
