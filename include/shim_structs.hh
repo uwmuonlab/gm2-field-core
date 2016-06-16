@@ -126,13 +126,20 @@ struct capacitec_t {
 const char *const capacitec_str =
 "midas_time/I:inner_up/F:inner_lo/F:outer_up/F:outer_lo/F";
 
-struct scs2000_t {
+struct mscb_cart_t {
   Int_t midas_time;
   Float_t temp[8];
   Float_t ctec[4];
 };
 
-const char *const scs2000_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+const char *const mscb_cart_str = "midas_time/I:temp[8]/F:ctec[4]/F";
+
+struct mscb_ring_t {
+  Int_t midas_time;
+  Float_t temp[12];
+};
+
+const char *const mscb_ring_str = "midas_time/I:temp[12]/F";
 
 struct tilt_sensor_t {
   Int_t midas_time;
@@ -143,13 +150,13 @@ struct tilt_sensor_t {
 
 const char *const tilt_sensor_str = "midas_time/I:temp/I:phi/I:rad/I";
 
-struct hall_platform_t {
+struct hall_probe_t {
   Double_t volt;
   Double_t temp;
   Int_t midas_time;
 };
 
-const char *const hall_platform_str = "volt/D:temp/D:midas_time/I";
+const char *const hall_probe_str = "volt/D:temp/D:midas_time/I";
 
 struct metrolab_t {
   Double_t field;
@@ -163,14 +170,15 @@ struct metrolab_t {
 const char *const metrolab_str = "field/D:midas_time/I:state/I:units/I:locked/O:"\
 "in_tesla/O";
 
-struct sync_flags_t {
+struct data_flags_t {
   Bool_t platform_data;
   Bool_t laser_data;
   Bool_t ctec_data;
   Bool_t mlab_data;
-  Bool_t envi_data;
   Bool_t tilt_data;
   Bool_t hall_data;
+  Bool_t mscb_cart_data;
+  Bool_t mscb_ring_data;
   Bool_t laser_p1;
   Bool_t laser_p2;
   Bool_t laser_swap;

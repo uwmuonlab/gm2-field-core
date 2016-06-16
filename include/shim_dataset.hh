@@ -29,13 +29,14 @@ class ShimDataset {
   
   // Variables
   platform_t platform;
-  hamar_t laser;
+  laser_t laser;
   capacitec_t ctec;
   metrolab_t mlab;
-  sync_flags_t flags;
-  scs2000_t envi;
+  data_flags_t flags;
+  mscb_cart_t cart;
+  mscb_ring_t ring;
   tilt_sensor_t tilt;
-  hall_platform_t hall;
+  hall_probe_t hall;
 
   // ctors
   ShimDataset(TFile *pf) { 
@@ -74,8 +75,12 @@ class ShimDataset {
     pt_sync_->GetEntry(idx);
   };
 
-  inline void GetEnviEntry(int idx) {
-    pt_envi_->GetEntry(idx);
+  inline void GetCartEntry(int idx) {
+    pt_cart_->GetEntry(idx);
+  };
+
+  inline void GetRingEntry(int idx) {
+    pt_ring_->GetEntry(idx);
   };
 
   inline void GetTiltEntry(int idx) {
@@ -88,7 +93,8 @@ class ShimDataset {
 
   inline void GetEntry(int idx) {
     pt_sync_->GetEntry(idx);
-    pt_envi_->GetEntry(idx);
+    pt_cart_->GetEntry(idx);
+    pt_ring_->GetEntry(idx);
     pt_tilt_->GetEntry(idx);
     pt_hall_->GetEntry(idx);
     pt_mlab_->GetEntry(idx);
@@ -98,8 +104,12 @@ class ShimDataset {
     return pt_sync_->GetEntries();
   };
 
-  inline int GetEnviEntries() {
-    return pt_envi_->GetEntries();
+  inline int GetRingEntries() {
+    return pt_ring_->GetEntries();
+  };
+
+  inline int GetCartEntries() {
+    return pt_cart_->GetEntries();
   };
 
   inline int GetTiltEntries() {
@@ -115,7 +125,8 @@ class ShimDataset {
   };
 
   inline TTree *pt_sync() { return pt_sync_; };
-  inline TTree *pt_envi() { return pt_envi_; };
+  inline TTree *pt_cart() { return pt_cart_; };
+  inline TTree *pt_ring() { return pt_ring_; };
   inline TTree *pt_tilt() { return pt_tilt_; };
   inline TTree *pt_hall() { return pt_hall_; };
   inline TTree *pt_mlab() { return pt_mlab_; };
@@ -124,7 +135,8 @@ class ShimDataset {
   
   TFile *pf_;
   TTree *pt_sync_;
-  TTree *pt_envi_;
+  TTree *pt_cart_;
+  TTree *pt_ring_;
   TTree *pt_tilt_; 
   TTree *pt_hall_; 
   TTree *pt_mlab_;
@@ -132,7 +144,8 @@ class ShimDataset {
   inline void Load() {
 
     pt_sync_ = (TTree *)pf_->Get("t_sync");
-    pt_envi_ = (TTree *)pf_->Get("t_envi");
+    pt_cart_ = (TTree *)pf_->Get("t_mscb_cart");
+    pt_ring_ = (TTree *)pf_->Get("t_mscb_ring");
     pt_tilt_ = (TTree *)pf_->Get("t_tilt");
     pt_hall_ = (TTree *)pf_->Get("t_hall");
     pt_mlab_ = (TTree *)pf_->Get("t_mlab");
@@ -141,10 +154,86 @@ class ShimDataset {
     pt_sync_->SetBranchAddress("laser", &laser.midas_time);
     pt_sync_->SetBranchAddress("ctec", &ctec.midas_time);
     pt_sync_->SetBranchAddress("flags", &flags.platform_data);
-    pt_envi_->SetBranchAddress("envi", &envi.midas_time);
+    pt_cart_->SetBranchAddress("cart", &cart.midas_time);
+    pt_ring_->SetBranchAddress("ring", &ring.midas_time);
     pt_tilt_->SetBranchAddress("tilt", &tilt.midas_time);
     pt_hall_->SetBranchAddress("hall", &hall.volt);
     pt_mlab_->SetBranchAddress("mlab", &mlab.field);
+  };  
+
+};
+
+
+class ExtractedDataset {
+
+ public:
+  
+  // Variables
+  field_t field;
+  laser_t laser;
+  capacitec_t ctec;
+  metrolab_t mlab;
+  data_flags_t flags;
+  mscb_cart_t cart;
+  mscb_ring_t ring;
+  tilt_sensor_t tilt;
+  hall_probe_t hall;
+
+  // ctors
+  ExtractedDataset(TFile *pf) { 
+    pf_ = pf; 
+    Load();
+  };
+
+  ExtractedDataset(char *fname) { 
+    pf_ = new TFile(fname, "read"); 
+    Load();
+  };
+
+  ExtractedDataset(std::string fname) { 
+    pf_ = new TFile(fname.c_str(), "read");
+    Load();
+  };
+
+  // Copy constructor
+  ExtractedDataset(const ExtractedDataset &sd) {
+    pf_ = new TFile(sd.pf_->GetName());
+    Load();
+  }
+
+  ~ExtractedDataset() {
+    pf_->Close();
+  }
+
+  inline const ExtractedDataset &operator[] (int idx) {
+    pt_->GetEntry(idx);    
+    return *this;
+  };
+
+  inline int GetEntries() {
+    return pt_->GetEntries();
+  };
+
+  inline TTree *pt() { return pt_; };
+
+ private:
+  
+  TFile *pf_;
+  TTree *pt_;
+
+  inline void Load() {
+
+    pt_ = (TTree *)pf_->Get("t");
+
+    pt_->SetBranchAddress("field", &field.sys_clock[0]);
+    pt_->SetBranchAddress("laser", &laser.midas_time);
+    pt_->SetBranchAddress("ctec", &ctec.midas_time);
+    pt_->SetBranchAddress("flags", &flags.platform_data);
+    pt_->SetBranchAddress("cart", &cart.midas_time);
+    pt_->SetBranchAddress("ring", &ring.midas_time);
+    pt_->SetBranchAddress("tilt", &tilt.midas_time);
+    pt_->SetBranchAddress("hall", &hall.volt);
+    pt_->SetBranchAddress("mlab", &mlab.field);
   };  
 
 };
