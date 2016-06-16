@@ -45,7 +45,7 @@ double laser_phi_p1_to_p2(double x) {
 };
 
 // Copy one channel b in pb to a in pa
-void platform_copy_channel(platform_t& pa, int a, platform_t& pb, int b) 
+void platform_copy_channel(platform_t& pa, int a, platform_t& pb, int b)
 {
   pa.sys_clock[a] = pb.sys_clock[b];
   pa.gps_clock[a] = pb.gps_clock[b];
@@ -58,7 +58,7 @@ void platform_copy_channel(platform_t& pa, int a, platform_t& pb, int b)
   pa.ferr_zc[a] = pb.ferr_zc[b];
   pa.health[a] = pb.health[b];
   pa.method[a] = pb.method[b];
-  std::copy(&pb.trace[b][0], &pb.trace[b][SHORT_FID_LN], &pa.trace[a][0]);
+  std::copy(&pb.trace[b][0], &pb.trace[b][SAVE_FID_LN], &pa.trace[a][0]);
 }
 
 } // ::gm2
