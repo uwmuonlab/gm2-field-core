@@ -13,17 +13,23 @@ about:  Contains the data structures for several hardware devices in a single
 
 \*===========================================================================*/
 
+//--- std includes ----------------------------------------------------------//
+#include <vector>
+#include <array>
+
 //--- other includes --------------------------------------------------------//
 #include "TFile.h"
 
 //--- projects includes -----------------------------------------------------//
 #include "shim_constants.hh"
 
-namespace gm2 {
+// Utility constants and macros
+#define FULL_FID_LN 100000
+#define SAVE_FID_LN 10000
 
-const double laser_phi_offset_p2_to_p1 = 1.971;
+#define SHIM_PLATFORM_CH 28
+#define SHIM_FIXED_CH 4
 
-// NMR specific stuff
 // A macro to define nmr structs since they are very similar.
 #define MAKE_NMR_STRUCT(name, num_ch, len_tr)\
 struct name {\
@@ -42,19 +48,61 @@ struct name {\
 };
 
 // Might as well define a root branch string for the struct.
+#define MAKE_NMR_STRING(name, num_ch, len_tr) NMR_HELPER(name, num_ch, len_tr)
 #define NMR_HELPER(name, num_ch, len_tr) \
 const char * const name = "sys_clock["#num_ch"]/D:gps_clock["#num_ch"]/D:"\
 "dev_clock["#num_ch"]/D:snr["#num_ch"]/D:len["#num_ch"]/D:freq["#num_ch"]/D:"\
 "ferr["#num_ch"]/D:freq_zc["#num_ch"]/D:ferr_zc["#num_ch"]/D:"\
 "health["#num_ch"]/s:method["#num_ch"]/s:trace["#num_ch"]["#len_tr"]/s"
 
-#define MAKE_NMR_STRING(name, num_ch, len_tr) NMR_HELPER(name, num_ch, len_tr)
+namespace gm2 {
 
-MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SHORT_FID_LN);
-MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SHORT_FID_LN);
+// NMR structs
+MAKE_NMR_STRUCT(platform_t, SHIM_PLATFORM_CH, SAVE_FID_LN);
+MAKE_NMR_STRING(platform_str, SHIM_PLATFORM_CH, SAVE_FID_LN);
+
+MAKE_NMR_STRUCT(long_platform_t, SHIM_PLATFORM_CH, FULL_FID_LN);
+MAKE_NMR_STRING(long_platform_str, SHIM_PLATFORM_CH, FULL_FID_LN);
+
+MAKE_NMR_STRUCT(fixed_t, SHIM_FIXED_CH, SAVE_FID_LN);
+MAKE_NMR_STRING(fixed_str, SHIM_FIXED_CH, SAVE_FID_LN);
+
+MAKE_NMR_STRUCT(long_fixed_t, SHIM_FIXED_CH, FULL_FID_LN);
+MAKE_NMR_STRING(long_fixed_str, SHIM_FIXED_CH, FULL_FID_LN);
+
+// Flexible struct built from the basic nmr attributes.
+struct nmr_data_vector {
+  std::vector<Double_t> sys_clock;
+  std::vector<Double_t> gps_clock;
+  std::vector<Double_t> dev_clock;
+  std::vector<Double_t> snr;
+  std::vector<Double_t> len;
+  std::vector<Double_t> freq;
+  std::vector<Double_t> ferr;
+  std::vector<Double_t> freq_zc;
+  std::vector<Double_t> ferr_zc;
+  std::vector<UShort_t> health;
+  std::vector<UShort_t> method;
+  std::vector< std::array<UShort_t, FULL_FID_LN> > trace;
+
+  inline void Resize(int size) {
+    sys_clock.resize(size);
+    gps_clock.resize(size);
+    dev_clock.resize(size);
+    snr.resize(size);
+    len.resize(size);
+    freq.resize(size);
+    ferr.resize(size);
+    freq_zc.resize(size);
+    ferr_zc.resize(size);
+    health.resize(size);
+    method.resize(size);
+    trace.resize(size);
+  }
+};
 
 // Note that phi_1 & phi_2 will be calculated from eachother, but not r, z.
-struct hamar_t {
+struct laser_t {
   Int_t midas_time;
   Float_t r_1;
   Float_t z_1;
@@ -64,7 +112,7 @@ struct hamar_t {
   Float_t phi_2;
 };
 
-const char *const hamar_str = 
+const char *const laser_str =
 "midas_time/I:r_1/F:z_1/F:phi_1/F:r_2/F:z_2/F:phi_2/F";
 
 struct capacitec_t {
@@ -75,7 +123,7 @@ struct capacitec_t {
   Float_t outer_lo;
 };
 
-const char *const capacitec_str = 
+const char *const capacitec_str =
 "midas_time/I:inner_up/F:inner_lo/F:outer_up/F:outer_lo/F";
 
 struct scs2000_t {
@@ -129,9 +177,10 @@ struct sync_flags_t {
   Bool_t missing_probe19;
 };
 
-const char *const sync_flags_str = 
-"platform_data/O:laser_data/O:ctec_data/O:metro_data/O:envi_data/O:"\
-"tilt_data/O:hall_data/O:laser_p1/O:laser_p2/O:laser_swap/O:missing_probe19/O";
+const char *const data_flags_str =
+"platform_data/O:laser_data/O:ctec_data/O:metro_data/O:tilt_data/O:"
+"hall_data/O:mscb_cart_data/O:mscb_ring_data/O:laser_p1/O:laser_p2/O:"\
+"laser_swap/O:missing_probe19/O";
 
 // Structs for derived datasets
 struct field_t {
@@ -142,7 +191,7 @@ struct field_t {
   Double_t multipole[16];
 };
 
-const char *const field_str = 
+const char *const field_str =
 "sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D";
 
 struct ring_t {
@@ -157,7 +206,7 @@ struct ring_t {
   Int_t yoke_id;
 };
 
-const char *const ring_str = 
+const char *const ring_str =
 "r/D:phi/D:z/D:gap_inner/D:gap_outer/D:gap_mean/D:/gap_diff/D:"\
 "pole_id/I:yoke_id/I";
 

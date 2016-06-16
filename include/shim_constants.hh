@@ -11,11 +11,6 @@ about:  A header file for shimming constants.
 
 \*===========================================================================*/
 
-#define NMR_FID_LN 100000
-#define SHORT_FID_LN 10000
-#define SHIM_PLATFORM_CH 28
-#define SHIM_FIXED_CH 4
-
 //--- std includes  ---------------------------------------------------------//
 
 namespace gm2 {
@@ -23,6 +18,9 @@ namespace gm2 {
 // General constants
 constexpr double storage_rad = 7112.0;
 constexpr double field_khz_to_ppm = 61790.0 * 1.0e-6;
+
+// NMR constants
+constexpr double nmr_sample_period = 0.0001;
 
 // Multipole constants
 constexpr int num_multipoles = 16;

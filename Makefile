@@ -45,8 +45,9 @@ LIBS = $(shell root-config --libs)
 CXXFLAGS += $(shell wx-config --cxxflags)
 LIBS += $(shell wx-config --libs)
 
-CPPFLAGS += -I. -Iinclude -Iinclude/drs
+CPPFLAGS += -I. -Iinclude -Iinclude/drs -I/usr/local/include/labdaq
 LIBS += -lm -lzmq -ljson_spirit -lCAENDigitizer -lusb-1.0 -lutil -lpthread
+LIBS += -llabdaq
 
 all: $(OBJECTS) $(OBJ_VME) $(OBJ_DRS) $(TARGETS) lib/$(ARNAME) $(DATADEF) \
 	$(LOGFILE) $(CONFDIR)
