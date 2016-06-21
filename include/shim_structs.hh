@@ -197,10 +197,11 @@ struct field_t {
   Double_t snr[28];
   Double_t len[28];
   Double_t multipole[16];
+  Double_t phi;
 };
 
 const char *const field_str =
-"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D";
+"sys_clock[28]/D:freq[28]/D:snr[28]/D:len[28]/D:multipole[16]/D:phi/D";
 
 struct ring_t {
   Double_t r;

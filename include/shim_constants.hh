@@ -17,10 +17,14 @@ namespace gm2 {
 
 // General constants
 constexpr double storage_rad = 7112.0;
-constexpr double field_khz_to_ppm = 61790.0 * 1.0e-6;
 
 // NMR constants
+constexpr double field_khz_to_ppm = 61790.0 * 1.0e-6;
 constexpr double nmr_sample_period = 0.0001;
+
+// Laser constants
+constexpr double laser_phi_offset =  1.971;
+constexpr double laser_p2_to_nmr_phi_offset = 1.36;
 
 // Multipole constants
 constexpr int num_multipoles = 16;
@@ -93,8 +97,6 @@ constexpr double pole_stop_angle(int pole_id) {
   return pole_id * 10.0 - 5.0;
 }
 
-// Laser constants
-constexpr double laser_phi_offset =  1.971;
 
 } // ::gm2
 
