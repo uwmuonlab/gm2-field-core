@@ -21,7 +21,7 @@ about:  Contains coordinate transformation functions that will be useful
 namespace gm2 {
 
 double laser_phi_p2_to_p1(double x) {
-  x -= laser_phi_offset;
+  x -= laser_p2_to_p1_phi_offset;
 
   if (x >= 360.0) {
     x -= 360.0;
@@ -33,7 +33,7 @@ double laser_phi_p2_to_p1(double x) {
 };
 
 double laser_phi_p1_to_p2(double x) {
-  x += laser_phi_offset;
+  x += laser_p2_to_p1_phi_offset;
 
   if (x >= 360.0) {
     x -= 360.0;
