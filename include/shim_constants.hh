@@ -23,7 +23,7 @@ constexpr double field_khz_to_ppm = 61790.0 * 1.0e-6;
 constexpr double nmr_sample_period = 0.0001;
 
 // Laser constants
-constexpr double laser_phi_offset =  1.971;
+constexpr double laser_p2_to_p1_phi_offset =  1.971;
 constexpr double laser_p2_to_nmr_phi_offset = 1.36;
 
 // Multipole constants
