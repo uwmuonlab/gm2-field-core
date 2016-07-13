@@ -28,7 +28,7 @@ about:  Contains the data structures for several hardware devices in a single
 #define SAVE_FID_LN 10000
 
 #define SHIM_PLATFORM_CH 28
-#define SHIM_FIXED_CH 4
+#define SHIM_FIXED_CH 24
 
 // A macro to define nmr structs since they are very similar.
 #define MAKE_NMR_STRUCT(name, num_ch, len_tr)\
